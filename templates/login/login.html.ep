@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Log in</title>
+	<style> body {
+				background-color: #000;
+			}
+
+			div {
+			    border: inset 3px;
+			    width: 40%;
+			    position: absolute;
+			    top: 40%;
+			    left: 30%;
+			    padding-bottom: 20px;
+			    background-color: #EAEAEA;
+			}
+			h1 {
+				text-align: center;
+			}
+			form {
+				text-align: center;
+    			padding: 0px 5px 0px 5px;
+			}
+			p {
+				color: red;
+				text-align: center;
+			}
+			div#square {
+				position: absolute;
+			    top: 70%;
+			    text-align: center;
+			    height: 0px;
+			}
+	</style>
+</head>
+<body>
+	<div>
+		<h1>Login</h1>
+		<form action="/login" method="post">
+			Email: <input type="text" name="email" value="<%=param('email')%>">
+			Password: <input type="password" name="password">
+			<button type="submit">Log in</button>
+		% if (param('email') ne ""){
+			<p>Неверные данные</p>
+		% }
+		</form>
+		<form action="/api/users/search" method ="post"><button type="submit">wanna some api magic?</button></form>
+	</div>
+
+	<div id="square">
+		<button onclick='lol()'>change color</button>
+ 	%= javascript begin
+    	var ws = new WebSocket('<%= url_for('ws')->to_abs %>');
+
+    	function lol (e) {
+       		ws.send('color');
+    	}
+ 	% end
+ 	</div>
+</body></html>

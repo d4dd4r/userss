@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+<head>
+	<title>api users</title>
+</head>
+<body>
+	Вариант 1:
+	<form action="/api/users" method="post">
+		<input type="text" name="search">
+		<input type="hidden" name="json" value="1">
+		<button type="submit" name="check" value="1">Search</button>
+	</form>
+	<br>
+	Вариант 2:
+	<form action="/api/users/search" method="post">
+		<input type="text" name="search">
+		<button type="submit" name="json" value="1">Search</button>
+	</form>
+</body>
+</html>

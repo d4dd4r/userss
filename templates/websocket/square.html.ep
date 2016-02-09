@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>square</title>
+</head>
+<body>
+  <p id="result"></p>
+  <div id='square' style='width: 200px; height: 200px; background-color: blue;'>
+  %= javascript begin
+    var ws = new WebSocket('<%= url_for('ws')->to_abs %>');
+
+    ws.onmessage = function (e) {
+      if (e.data == 'color') {
+        //document.getElementById('result').innerHTML += '<p>' + get_color() + '</p>';
+        document.getElementById('square').style.backgroundColor = get_color();
+      }
+    };
+
+    function get_color() {
+      var color = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'];
+      var getColor = '#';
+      for (var i=0; i<3; i++) {
+        getColor += color[Math.floor(Math.random()*16)];
+      }
+
+      return getColor;
+    };
+
+
+  % end
+</body>
+</html>

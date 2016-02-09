@@ -1,0 +1,66 @@
+% layout 'default';
+% title 'From';
+% my $submit;
+
+<div id="body">
+<h2><%= $title %></h2>
+
+% ($title eq 'Добавление пользователя:') ? ($submit = 'Добавить') : ($submit = 'Сохранить');
+% if ($submit eq 'Добавить') {
+	<form method="post" action="/users/add" enctype="multipart/form-data">
+% } elsif ($submit eq 'Сохранить'){
+	<form method="post" action="/users/<%= $user_id %>/edit" enctype="multipart/form-data">
+% }
+
+	<table id="users">
+	<tr>
+		<td>Name*:</td>
+		<td><input type="text" name="username" value="<%= param('username') %>"/></td>
+% if ($error_name eq 'name') {
+		<td id="error">введите name</td>	
+% }
+	</tr>
+	<tr>
+		<td>Email*:</td>
+		<td><input type="email" name="email" value="<%= param('email') %>"/></td>
+% if ($error_email eq 'email') {
+		<td id="error">введите email</td>	
+% } elsif ($error_email_v eq 'email_v') {
+		<td id="error">такой email уже существует</td>
+% }
+	</tr>
+	<tr>
+		<td>Password:</td>
+		<td><input type="password" name="pass" /></td>
+% if ($error_pass eq 'pass') {
+		<td id="error">введите пароль (мин. 6 символов)</td>	
+% }
+	</tr>
+	<tr>
+		<td>Money:</td>
+		<td><input type="text" name="money" value="<%= param('money') %>"/></td>
+	</tr>
+	<tr>
+		<td>Created:</td>
+		<td><input type="date" name="date" value="<%= param('date') %>"/></td>
+	</tr>
+	<tr>
+		<td>Upload:</td>
+		<td><input type="file" name ="upload_file" multiple accept="image/jpeg,image/png"/></td>
+	</tr>
+	<tr>
+		<td><button name="submit" value="1" type="submit"><%= $submit %></button>
+		<input type="hidden" name="hidden_form" value="1">
+% if ($submit eq 'Добавить') {
+		<input type="hidden" name="hidden_list" value="1">
+		</td>
+% } else {
+		<input type="hidden" name="user_email" value=<%= $user_email %>>
+		</td>
+% }
+	</tr>
+	</table>
+</form>
+<p> * - обязательные поля  </p>
+
+</div>

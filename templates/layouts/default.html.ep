@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  		<title><%= title %></title>
+      <link rel="stylesheet" href="/style.css" type="text/css" charset="utf-8">
+  </head>
+  <body>
+  	<header>
+  		<div>
+	  		<p>
+	  			logged-in as: <a href="/check" ><b><%= session 'user'%></b></a>
+	  		</p>
+	  		<form action="/login">
+	  			<button type="submit">Log out</button>
+	  		</form>
+  		</div>
+  	</header>
+
+  	<nav>
+      <table id="nav"><tr><td id="right">
+      <form action="/users" method="post">
+        <button type="submit">Main</button>
+      </form></td><td id="left">
+      <form action="/users/search" method="post">
+        <button type="submit">Search</button>
+      </form></td></tr></table>
+  	</nav>
+  	
+  <%= content %></body>
+</html>

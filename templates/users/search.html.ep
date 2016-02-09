@@ -1,0 +1,60 @@
+% layout 'default';
+% title 'Search';
+% my (@massive, $i);
+
+
+<div id="body">
+<h2>Users:</h2>
+
+<table id="search"><tr><td>
+<form method="post" action="/users/add"> 
+	<input type="hidden" name="hidden_list" value="1">
+	<button type="submit">add new user</button>
+</form></td><td>
+<form method="post" action="/users/search"> 
+	<input type="text" name="search" value=<%=param('search')%>>
+	<button type="submit">search</button>
+</form></td></tr></table>
+% if ((scalar keys $userhash) != 0) {
+	<table id='users'>
+			<tr id='table_head'>
+			<td>id:</td>
+			<td>avatar:</td>
+			<td>name:</td>
+			<td>email:</td>
+			%#<td>password:</td>
+			%#<td>sex</td>
+			<td>money</td>
+			<td>updated:</td>
+			<td>created:</td>
+			<td>edit:</td>
+			<td>delete:</td></tr>
+		% for (keys $userhash) {$massive[$i++] = $_; } 
+		% @massive = sort {$a <=> $b} @massive;
+		% for (@massive) {
+			<tr id='table_body'>
+			<td><%= $userhash->{$_}->{id} %></td>
+			<td> <img src="/<%=$userhash->{$_}->{img}%>" width="40" height="40" alt=""> </td>
+			<td><%= $userhash->{$_}->{name} %></td>
+			<td><%= $userhash->{$_}->{email} %></td>
+			% #<td><%= $userhash->{$_}->{pass} %></td>
+			% #<td><%= $userhash->{$_}->{sex} %></td>
+			<td id='td'><%= $userhash->{$_}->{money} %></td>
+			<td><%= $userhash->{$_}->{updated} %></td>
+			<td><%= $userhash->{$_}->{created} %></td>
+			<td>
+				<form method="post" action="/users/<%=$userhash->{$_}->{id}%>/edit"> 
+					<input type="hidden" name="user_email" value=<%=$userhash->{$_}->{email}%>>
+					<button type="submit" name="id" value=<%=$userhash->{$_}->{id}%> >edit</button>
+				</form></td>
+			<td>
+				<form method="post" action="/users/<%=$userhash->{$_}->{id}%>/remove"> 
+					<button type="submit" name="id" value=<%=$userhash->{$_}->{id}%> >del</button>
+				</form></td></tr>
+		% } 
+	</table>
+% } else {
+	<h3> данные отсутствуют </h3>
+% }
+
+</div>
