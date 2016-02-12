@@ -2,5 +2,5 @@
 use strict;
 
 sub button {
-	
+	print "hello";
 }
